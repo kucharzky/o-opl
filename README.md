@@ -1,4 +1,4 @@
-# JPO-cpp
+# Object-Oriented Programming Languages
 > PL Języki Programowania Obiektowego 
 
 > ENG Object-Oriented Programming Languages
