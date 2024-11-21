@@ -278,9 +278,9 @@ public:
             return;
         }
         for (const auto& person : db) {
-            file << person.get_firstName() << " " << person.get_lastName() << " "
-                << person.get_age() << " " << person.get_adr().get_Country() << " "
-                << person.get_adr().get_City() << " " << person.get_adr().get_Street() << endl;
+            file << person.get_firstName() << endl << person.get_lastName() << endl
+                << person.get_age() << endl << person.get_adr().get_Country() << endl
+                << person.get_adr().get_City() << endl << person.get_adr().get_Street() << endl;
         }
         cout << "Database saved successfully!" << endl;
     }
@@ -292,9 +292,12 @@ public:
             return;
         }
         db.clear();
-        Person temp("", "", 0, Addr("", "", ""));
-        while (file >> temp) {
-            db.push_back(temp);
+        string tempfirst, templast, tempcountry, tempcity, tempstreet;
+        int ag;
+        while (getline(file, tempfirst)&&getline(file, templast)&&file>>ag && file.ignore()&&getline(file,tempcountry)&&getline(file,tempcity)&&getline(file,tempstreet)) {
+            Addr address(tempcountry,tempcity,tempstreet);
+            Person person(tempfirst,templast,ag,address);
+            db.push_back(person);
         }
         cout << "Database loaded successfully!" << endl;
     }
@@ -380,7 +383,7 @@ int main() {
 
         // Validate menu choice input
         while (!(cin >> choice)) {
-            cout << "Invalid input. Please enter a number between 1 and 7.\n";
+            cout << "Invalid input. Please enter a number between 1 and 8.\n";
             clearInputBuffer();
             printMenu();
         }
